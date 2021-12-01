@@ -1,8 +1,8 @@
 <template>
   <div>
-    <label for="todo-input"></label>
-    <input id="todo-input" type="text" :value="test" @input="updateTodoText" />
-    <button type="button">add</button>
+    <label for="input-todo">오눌 할 일: </label>
+    <input id="input-todo" type="text" :value="item" @input="handleInput"/>
+    <button type="button" @click="addTodo">추가</button>
   </div>
 </template>
 
@@ -10,14 +10,26 @@
     import Vue from 'vue'
 
     export default Vue.extend ({
-      props: ['test'],
+      props: {
+        item: {
+          type: String,
+          required: true
+        }
+      },
       methods: {
-        updateTodoText(event) {
-          event.target.value;
-
+        handleInput(event: InputEvent) {
+          if (!event.target) {
+            return;
+          }
+          this.$emit('input', event.target.value);
+          // const eventTarget = event.target as HTMLInputElement;
+          // this.$emit('input', eventTarget.value);
+        },
+        addTodo() {
+          this.$emit('add') // button과 input의 value는 자동으로 연결되어 있나?????
+                                  // 뭘 넘기는지 적지 않는 것이 그래서 생소함
         }
       }
-
     })
 </script>
 

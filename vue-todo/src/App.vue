@@ -1,14 +1,25 @@
 <template>
   <div>
     <header>
-      <h1>Vue todo /w typescript 4th try.</h1>
+      <h1> Vue todo /w typescript blank_test </h1>
     </header>
     <main>
-      <TodoInput :item="todoText" @input="updateTodoText" @add="addTodoText"></TodoInput>
+      <TodoInput
+          :item="todoItem"
+          @input="updateTodoText"
+          @add="addTodoText">
+      </TodoInput>
     </main>
     <div>
       <ul>
-        <TodoListItem v-for="(todoItem, index) in todoItems" :key="index" :todoItem="todoItem"></TodoListItem>
+        <TodoListItem
+            v-for="(todoItem, index) in todoItems"
+            :key="index"
+            :item="todoItem"
+            @remove="removeTodoItem"
+            :index="index"
+            >
+        </TodoListItem>
       </ul>
     </div>
   </div>
@@ -19,11 +30,10 @@
     import TodoInput from "@/components/TodoInput.vue";
     import TodoListItem from "@/components/TodoListItem.vue";
 
-    const STORAGE_KEY = "vue-fifth-try"
+    const STORAGE_KEY = "vue-blank-test-1";
     const storage = {
-      save(value: any[]) { // 여기서 좀 아리까리. 저 value는 꼭 필요한가에 대해 고민했어 작성 시에.
-        // const parsed = JSON.stringify(this.todoItems);
-        const parsed = JSON.stringify(value);
+      save(value: any[]) { // []를 빼먹었었는데, 되던데?
+        const parsed = JSON.stringify(value)
         localStorage.setItem(STORAGE_KEY, parsed);
       },
       fetch() {
@@ -37,27 +47,31 @@
       components: {TodoListItem, TodoInput},
       data() {
         return {
-          todoText: "",
+          todoItem: "init",
           todoItems: [] as any[]
         }
       },
       methods: {
-        updateTodoText(text: any) {
-          this.todoText = text;
-          //this.initTodoText(); 잘못 넣으니까.. 안됐지.. 비었지 자꾸..
+        updateTodoText(value: any) { // 난 string 줬었는데, 되던데?
+          this.todoItem = value;
         },
         addTodoText() {
-          const value = this.todoText;
+          const value = this.todoItem;
           this.todoItems.push(value);
           storage.save(this.todoItems);
           // localStorage.setItem(value, value);
           this.initTodoText();
         },
+        removeTodoItem(index: number) {
+          console.log(index) // 이 습관이 필요. 확인은 console.log
+          this.todoItems.splice(index, 1);
+          storage.save(this.todoItems)
+        },
         initTodoText() {
-          this.todoText = ""
+          this.todoItem = "";
         },
         fetchTodoText() {
-          this.todoItems = storage.fetch();
+          this.todoItem = storage.fetch();
         }
       },
       created() {

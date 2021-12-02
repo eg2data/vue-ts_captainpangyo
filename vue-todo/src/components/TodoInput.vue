@@ -1,7 +1,7 @@
 <template>
   <div>
-    <label for="input-todo">오눌 할 일: </label>
-    <input id="input-todo" type="text" :value="item" @input="handleInput"/>
+    <label for="todo-input">오늘 할 일: </label>
+    <input id="todo-input" type="text" :value="item" @input="handleInput"/>
     <button type="button" @click="addTodo">추가</button>
   </div>
 </template>
@@ -13,21 +13,20 @@
       props: {
         item: {
           type: String,
-          required: true
+          required: true,
         }
       },
       methods: {
         handleInput(event: InputEvent) {
-          if (!event.target) {
-            return;
-          }
-          this.$emit('input', event.target.value);
-          // const eventTarget = event.target as HTMLInputElement;
-          // this.$emit('input', eventTarget.value);
+          // if(!event.target) {
+          //   return;
+          // }
+          // this.$emit('input', event.target.value);
+          const eventTarget = event.target as HTMLInputElement;
+          this.$emit('input', eventTarget.value);
         },
         addTodo() {
-          this.$emit('add') // button과 input의 value는 자동으로 연결되어 있나?????
-                                  // 뭘 넘기는지 적지 않는 것이 그래서 생소함
+          this.$emit('add');
         }
       }
     })

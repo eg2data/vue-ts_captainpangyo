@@ -1,35 +1,47 @@
 <template>
   <div>
     <li>
-      <span> {{ item }} </span>
-      <button @click="removeTodo">삭제</button>
+        <span class="item" :class="todoItemClass" @click="toggleTodo"> {{ item.title }} </span>
+        <button @click="removeTodo">삭제</button>
     </li>
   </div>
 </template>
 
 <script lang="ts">
-    import Vue from 'vue'
+import Vue, {PropType} from 'vue'
+import {Todo} from "@/App.vue";
+
 
     export default Vue.extend ({
       props: {
         item: {
-          type: String,
+          type: Object as PropType<Todo>,
         },
-        index: { // 근데 이걸.. 위에서는 이용 안하네? 필수는 아닌가보군.
-                 // 좀 이상하다. 받아와서, 아래에서 걍 다시 넘기기만하는게 끝이네
-                 // 저 for문 내 item들과의 connection은 어디서 생겨?
+        index: {
           type: Number,
         }
       },
+      computed: {
+        todoItemClass(): string | any {
+          return this.item.done ? "completed" : null;
+        }
+      },
       methods: {
+        toggleTodo() {
+          this.$emit('toggle', this.item, this.index)
+        },
         removeTodo() {
           this.$emit('remove', this.index)
         }
       }
-
     })
 </script>
 
 <style scoped>
-
+.item {
+  cursor: pointer;
+}
+.completed {
+  text-decoration: line-through;
+}
 </style>

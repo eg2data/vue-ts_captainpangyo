@@ -7,25 +7,25 @@
 </template>
 
 <script lang="ts">
-    import Vue from 'vue'
+import Vue from 'vue'
 
-    export default Vue.extend ({
-      props: {
-        item: {
-          type: String,
-          required: true
-        }
-      },
-      methods: {
-        updateTodo(event: InputEvent) {
-          const eventTarget = event.target as HTMLInputElement
-          this.$emit('input', eventTarget.value)
-        },
-        addTodo() {
-          this.$emit('add')
-        }
-      }
-    })
+export default Vue.extend ({
+  props: {
+    item: {
+      type: String,
+      required: true
+    }
+  },
+  methods: {
+    updateTodo(event: InputEvent) {
+      const eventTarget = event.target as HTMLInputElement
+      this.$emit('input', eventTarget.value)
+    },
+    addTodo() {
+      this.$emit('add')
+    }
+  }
+})
 </script>
 
 <style scoped>

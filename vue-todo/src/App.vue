@@ -79,7 +79,7 @@ export default Vue.extend ({
     },
     toggleTodoItem(todoItem: Todo, index: number) {
       this.todoItems.splice(index, 1, {
-        ...todoItem,
+        ...todoItem, // 확 와닿진 않는 문법
         done: !todoItem.done
       });
       storage.save(this.todoItems)

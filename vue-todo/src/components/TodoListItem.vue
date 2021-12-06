@@ -23,8 +23,11 @@ export default Vue.extend ({
   },
   computed: { // 어색어색
     todoItemClass(): string | any { // 이 type은 뭘 기준으로 준건지 사실 잘 모르겠다. 아? 아래 함수에서 나올 수 있는 결과의 타입을 그대로 받은건가? 음?
+// 이거 모르겠네. 위에서 @click=toggleCompleted()로 연결하는거 아니었나? 음. 얘만 딱 걸리네 음. => :class에 넣는거까진 ok.
 
-      return this.item.done ? "completed" : null;
+
+      return this.item.done ? "completed" : null; // return을 안썼어!!!!
+
     }
   },
   methods: {

@@ -13,7 +13,7 @@ export default Vue.extend ({
   props: {
     item: {
       type: String,
-      required: true
+      required: true // 빼먹었네
     }
   },
   methods: {

@@ -1,14 +1,13 @@
 <template>
   <div>
     <header>
-      <h1> Vue-Ts blank test. </h1>
+      <h1> vue-ts test. </h1>
     </header>
     <main>
-<!--      toggleTodoItem을 왜 여기에 붙였냐.. 정신 좀..-->
-      <TodoInput :item="todoItem" @input="updateTodoItem" @add="addTodoItem" ></TodoInput>
+      <TodoInput :item="todoItem" @input="updateTodoItem" @add="addTodoItem"></TodoInput>
     </main>
     <div>
-      <TodoListItem v-for="(todoItem, index) in todoItems" :key="index" :item="todoItem" :index="index" @remove="removeTodoItem" @toggle="toggleTodoItem"></TodoListItem>
+      <TodoListItem v-for="(todoItem, index) in todoItems" :key="todoItem" :item="todoItem" :index="index" @remove="removeTodoItem" @toggle="toggleTodoItem"></TodoListItem>
     </div>
   </div>
 </template>
@@ -20,8 +19,8 @@
 
     const STORAGE_KEY = "vue-ts"
     const storage = {
-      save(value: Todo[]) {
-        const parsed = JSON.stringify(value)
+      save(values: Todo[]) {
+        const parsed = JSON.stringify(values)
         localStorage.setItem(STORAGE_KEY, parsed)
       },
       fetch(): Todo[] {
@@ -46,7 +45,8 @@
       },
       methods: {
         updateTodoItem(value: string) {
-          this.todoItem = value;
+          this.todoItem = value
+
         },
         addTodoItem() {
           const value = this.todoItem
@@ -55,39 +55,38 @@
             done: false
           }
           this.todoItems.push(values)
-          storage.save(this.todoItems) // 왜 error?
+          storage.save(this.todoItems)
           // localStorage.setItem(value, value)
-          this.initTodoItem();
+          this.initTodoItem()
         },
         initTodoItem() {
           this.todoItem = ""
         },
         fetchTodoItem() {
-          this.todoItems = storage.fetch().sort((a, b) => {
+          this.todoItems = storage.fetch().sort((a, b) => { // 와 정렬 기능 구현을 까먹어버렸다!!
             if (a.title < b.title) {
               return -1;
             }
             if (a.title > b.title) {
               return 1;
             }
-            return 0
+            return 0;
           });
         },
         removeTodoItem(index: number) {
           this.todoItems.splice(index, 1);
           storage.save(this.todoItems)
         },
-        toggleTodoItem(todoItem: Todo, index: number) {
+        toggleTodoItem(item: Todo, index: number) {
           this.todoItems.splice(index, 1, {
-            ...todoItem,
-            done: !todoItem.done
+            ...item,
+            done: !item.done
           })
-          storage.save(this.todoItems) // 이게 왜 작동을 안하지...? 음?
-
+          storage.save(this.todoItems)
         }
       },
       created() {
-        this.fetchTodoItem();
+        this.fetchTodoItem()
       }
     })
 </script>

@@ -2,8 +2,7 @@
   <div>
     <ul>
       <li>
-<!--        completed를 저렇게 연결했으면, 앞에선 지웟어야지 어휴-->
-        <span class="item " :class="todoComplete" @click="toggleTodo"> {{item.title}} </span>
+        <span class="item" :class="toggleComplete" @click="toggleTodo"> {{ item.title }} </span>
         <button type="button" @click="removeTodo">삭제</button>
       </li>
     </ul>
@@ -24,8 +23,8 @@ import {Todo} from "@/App.vue";
         }
       },
       computed: {
-        todoComplete(): string | any { // 아.. 여기 return을 꼭 줘야한다는 사실!!!!!!
-          return this.item.done ? 'completed' : null
+        toggleComplete(): string | any {
+          return this.item.done ? "completed" : null;
         }
       },
       methods: {

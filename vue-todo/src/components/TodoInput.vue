@@ -1,7 +1,8 @@
 <template>
   <div>
-    <label for="todo-list">오늘 할 일: </label>
-    <input id="todo-list" type="text" :value="item" @input="handleInput"/>
+    <label for="todo-input">오늘 할 일: </label>
+    <input id="todo-input" type="text" :value="item" @input="handleInput"/>
+<!--    위에.. @click 아니고 @input.-->
     <button type="button" @click="addTodo">추가</button>
   </div>
 </template>
@@ -13,13 +14,13 @@
       props: {
         item: {
           type: String,
-          required: true,
+          required: true
         }
       },
       methods: {
         handleInput(event: InputEvent) {
-          const eventTarget = event.target as HTMLInputElement;
-          this.$emit('input', eventTarget.value);
+          const eventTarget = event.target as HTMLInputElement
+          this.$emit('input', eventTarget.value)
         },
         addTodo() {
           this.$emit('add')

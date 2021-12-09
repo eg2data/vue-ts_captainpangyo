@@ -1,8 +1,7 @@
 <template>
   <div>
-    <label for="todo-input">오늘 할 일: </label>
-    <input id="todo-input" type="text" :value="item" @input="handleInput"/>
-<!--    위에.. @click 아니고 @input.-->
+    <label for="todo-list">오늘 할 일: </label>
+    <input id="todo-list" type="text" :value="item" @input="handleInput"/>
     <button type="button" @click="addTodo">추가</button>
   </div>
 </template>
@@ -14,12 +13,12 @@
       props: {
         item: {
           type: String,
-          required: true
+          required: true // 근데 이게 무슨 의미가 있지? 어디서 확인 가능할까?
         }
       },
       methods: {
         handleInput(event: InputEvent) {
-          const eventTarget = event.target as HTMLInputElement
+          const eventTarget = event.target as HTMLInputElement;
           this.$emit('input', eventTarget.value)
         },
         addTodo() {

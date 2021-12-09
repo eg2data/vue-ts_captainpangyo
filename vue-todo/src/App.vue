@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <h1> vue-ts test. </h1>
+      <h1> Vue-Typescript blank-test </h1>
     </header>
     <main>
       <TodoInput :item="todoItem" @input="updateTodoItem" @add="addTodoItem"></TodoInput>
@@ -26,7 +26,7 @@
       fetch(): Todo[] {
         const value = localStorage.getItem(STORAGE_KEY) || "[]";
         const result = JSON.parse(value);
-        return result;
+        return result
       }
     }
 
@@ -46,7 +46,6 @@
       methods: {
         updateTodoItem(value: string) {
           this.todoItem = value
-
         },
         addTodoItem() {
           const value = this.todoItem
@@ -55,26 +54,26 @@
             done: false
           }
           this.todoItems.push(values)
-          storage.save(this.todoItems)
           // localStorage.setItem(value, value)
+          storage.save(this.todoItems)
           this.initTodoItem()
         },
         initTodoItem() {
           this.todoItem = ""
         },
         fetchTodoItem() {
-          this.todoItems = storage.fetch().sort((a, b) => { // 와 정렬 기능 구현을 까먹어버렸다!!
-            if (a.title < b.title) {
+          this.todoItems = storage.fetch().sort((a, b) => {
+            if(a.title < b.title) {
               return -1;
             }
-            if (a.title > b.title) {
+            if(a.title > b.title) {
               return 1;
             }
             return 0;
-          });
+          })
         },
         removeTodoItem(index: number) {
-          this.todoItems.splice(index, 1);
+          this.todoItems.splice(index, 1)
           storage.save(this.todoItems)
         },
         toggleTodoItem(item: Todo, index: number) {
@@ -88,6 +87,7 @@
       created() {
         this.fetchTodoItem()
       }
+
     })
 </script>
 

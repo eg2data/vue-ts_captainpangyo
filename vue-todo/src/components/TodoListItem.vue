@@ -2,8 +2,8 @@
   <div>
     <ul>
       <li>
-        <span class="item" :class="todoComplete" @click="toggleTodo"> {{ item.title }} </span>
-        <button @click="removeTodo">삭제</button>
+        <span class="item" :class="toggleComplete" @click="toggleTodo"> {{ item.title }} </span>
+        <button type="button" @click="removeTodo">삭제</button>
       </li>
     </ul>
   </div>
@@ -23,8 +23,8 @@ import {Todo} from "@/App.vue";
         }
       },
       computed: {
-        todoComplete(): string | any {
-          return this.item.done ? 'completed' : null
+        toggleComplete(): string | null {
+          return this.item.done ? 'completed' : null;
         }
       },
       methods: {

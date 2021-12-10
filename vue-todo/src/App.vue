@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <h1> Vue-Typescript blank-test </h1>
+      <h1> Vue-Typescript BlankTest 10th Dec 2021</h1>
     </header>
     <main>
       <TodoInput :item="todoItem" @input="updateTodoItem" @add="addTodoItem"></TodoInput>
@@ -26,7 +26,7 @@
       fetch(): Todo[] {
         const value = localStorage.getItem(STORAGE_KEY) || "[]";
         const result = JSON.parse(value);
-        return result
+        return result;
       }
     }
 
@@ -49,12 +49,12 @@
         },
         addTodoItem() {
           const value = this.todoItem
+          // localStorage.setItem(value, value)
           const values: Todo = {
             title: value,
             done: false
           }
           this.todoItems.push(values)
-          // localStorage.setItem(value, value)
           storage.save(this.todoItems)
           this.initTodoItem()
         },
@@ -63,10 +63,10 @@
         },
         fetchTodoItem() {
           this.todoItems = storage.fetch().sort((a, b) => {
-            if(a.title < b.title) {
+            if (a.title < b.title) {
               return -1;
             }
-            if(a.title > b.title) {
+            if (a.title > b.title) {
               return 1;
             }
             return 0;
@@ -87,7 +87,6 @@
       created() {
         this.fetchTodoItem()
       }
-
     })
 </script>
 

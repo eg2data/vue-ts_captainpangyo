@@ -13,7 +13,7 @@
       props: {
         item: {
           type: String,
-          required: true,
+          required: true
         }
       },
       methods: {

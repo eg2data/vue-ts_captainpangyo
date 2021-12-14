@@ -2,8 +2,8 @@
   <div>
     <ul>
       <li>
-        <span class="item" :class="toggleComplete" @click="toggleTodo"> {{ todoItem.title }} </span>
-        <button type="button" @click="removeItem">삭제</button>
+        <span class="item" :class="toggleComplete" @click="toggleTodo"> {{ item.title }} </span>
+        <button type="button" @click="removeTodo">삭제</button>
       </li>
     </ul>
   </div>
@@ -15,7 +15,7 @@ import {Todo} from "@/App.vue";
 
     export default Vue.extend ({
       props: {
-        todoItem: {
+        item: {
           type: Object as PropType<Todo>
         },
         index: {
@@ -24,15 +24,15 @@ import {Todo} from "@/App.vue";
       },
       computed: {
         toggleComplete(): string | null {
-          return this.todoItem.done ? 'complete' : null;
+          return this.item.done ? 'completed' : null
         }
       },
       methods: {
-        removeItem() {
+        removeTodo() {
           this.$emit('remove', this.index)
         },
         toggleTodo() {
-          this.$emit('toggle', this.todoItem, this.index)
+          this.$emit('toggle', this.item, this.index)
         }
       }
     })
@@ -42,7 +42,7 @@ import {Todo} from "@/App.vue";
 .item {
   cursor: pointer;
 }
-.complete {
+.completed {
   text-decoration: line-through;
 }
 </style>

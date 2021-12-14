@@ -1,13 +1,13 @@
 <template>
   <div>
     <header>
-      <h1> Vue-Ts blankTest 11th Dec 2021 </h1>
+      <h1> Vue-Ts blank test after two days </h1>
     </header>
     <main>
       <TodoInput :item="todoItem" @input="updateTodoItem" @add="addTodoItem"></TodoInput>
     </main>
     <div>
-      <TodoListItem v-for="(todoItem, index) in todoItems" :key="index" :todoItem="todoItem" :index="index" @remove="removeTodoItem" @toggle="toggleTodoItem"></TodoListItem>
+      <TodoListItem :item="todoItem" :index="index" v-for="(todoItem, index) in todoItems" :key="index" @remove="removeTodoItem" @toggle="toggleTodoItem"></TodoListItem>
     </div>
   </div>
 </template>
@@ -16,11 +16,6 @@
     import Vue from 'vue'
     import TodoInput from "@/components/TodoInput.vue";
     import TodoListItem from "@/components/TodoListItem.vue";
-
-    export interface Todo {
-      title: string,
-      done: boolean
-    }
 
     const STORAGE_KEY = "vue-ts"
     const storage = {
@@ -35,17 +30,22 @@
       }
     }
 
+    export interface Todo {
+      title: string,
+      done: boolean
+    }
+
     export default Vue.extend ({
       components: {TodoListItem, TodoInput},
       data() {
         return {
           todoItem: "",
-          todoItems: [] as Todo[],
+          todoItems: [] as Todo[]
         }
       },
       methods: {
         updateTodoItem(value: string) {
-          this.todoItem = value;
+          this.todoItem = value
         },
         addTodoItem() {
           const value = this.todoItem
@@ -54,7 +54,6 @@
             done: false
           }
           this.todoItems.push(values)
-          // localStorage.setItem(value, value)
           storage.save(this.todoItems)
           this.initTodoItem()
         },
@@ -70,19 +69,19 @@
               return 1;
             }
             return 0;
-          });
+          })
         },
         removeTodoItem(index: number) {
           this.todoItems.splice(index, 1)
           storage.save(this.todoItems)
         },
-        toggleTodoItem(todoItem: Todo, index: number) {
-          this.todoItems.splice(index, 1, {
-            ...todoItem,
-            done: !todoItem.done
+        toggleTodoItem(item: Todo, index: number) {
+          this.todoItems.splice(index, 1, { // 이걸 빼먹고.. 하..
+            ...item,
+            done: !item.done
           })
           storage.save(this.todoItems)
-        }
+        },
       },
       created() {
         this.fetchTodoItem()
